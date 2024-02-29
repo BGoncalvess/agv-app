@@ -1,0 +1,10 @@
+config:
+  project_name: agv-do-bruno-app
+
+stages:
+  fetch_latest_tag: true
+  build_image:
+    enabled: true
+    language: java
+  save_image: true
+  deploy_image: false
