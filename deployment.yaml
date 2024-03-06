@@ -4,7 +4,7 @@ metadata:
   name: java-agv
   labels:
     app: java
-  namespace: agv-do-bruno
+  namespace: agv-app
 spec:
   replicas: 2
   selector:

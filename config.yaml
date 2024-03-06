@@ -1,5 +1,5 @@
 config:
-  project_name: agv-do-bruno-app
+  project_name: agv-app
 
 stages:
   fetch_latest_tag: true
