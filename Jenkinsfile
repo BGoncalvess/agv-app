@@ -8,9 +8,9 @@ pipeline {
                 expression { readYaml(file: 'config.yaml').stages['fetch_latest_tag'] == true } 
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'e1b078a5-f9cc-4e1f-9465-c9f042e52e2d', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_TOKEN')]) {
+                withCredentials([usernamePassword(credentialsId: '884e60f4-2593-46b7-8fc0-b8745791ce4a', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_TOKEN')]) {
                     sh '''
-                        git config --global http.https://github.com/BGoncalvess/agv-do-bruno.git "AUTHORIZATION: Basic $(echo -n $GIT_USERNAME:$GIT_TOKEN | base64)"
+                        git config --global http.https://github.com/BGoncalvess/agv-app.git "AUTHORIZATION: Basic $(echo -n $GIT_USERNAME:$GIT_TOKEN | base64)"
                         git fetch --tags
                     '''
                     script {
