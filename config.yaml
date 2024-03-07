@@ -7,4 +7,4 @@ stages:
     enabled: true
     language: java
   save_image: true
-  deploy_image: false
+  deploy_image: true
