@@ -18,8 +18,8 @@ pipeline {
             }
             steps {
                 script {
-                    def choiseRunAll = params.RunProjectsIndividualy
-                    def choiseIndividualy = params.RunAllProjects
+                    def choiceRunAll = params.RunProjectsIndividualy
+                    def choiceIndividualy = params.RunAllProjects
 
                     if (params.TOGGLE) {
                         stageFetchLatestTag(choiceRunAll)
