@@ -28,3 +28,4 @@ def call(String tags) {
             git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/BGoncalvess/agv-app.git --tags
         """
     }
+}

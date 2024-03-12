@@ -1,21 +1,29 @@
 @Library('agv-shared-libraries') _
 
 pipeline {
+    dependencyCheck()
+    parameters{
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Run Agv')
+        choice(name: 'CHOISE', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'Run Individualy')
+    }
+    
     agent any
+    
+    def latestTag = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+    def choiseRunAll = sh(script: '${params.TOGGLE}')
+    def choiseIndividualy = sh(script: '${params.CHOICE}')
+
     stages {
         stage('Fetch Latest Tag') {
             when {  
                 expression { readYaml(file: 'config.yaml').stages['fetch_latest_tag'] == true } 
             }
             steps {
-                withCredentials([usernamePassword(credentialsId: '884e60f4-2593-46b7-8fc0-b8745791ce4a', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_TOKEN')]) {
-                    sh '''
-                        git config --global http.https://github.com/BGoncalvess/agv-app.git "AUTHORIZATION: Basic $(echo -n $GIT_USERNAME:$GIT_TOKEN | base64)"
-                        git fetch --tags
-                    '''
-                    script {
-                        def latestTag = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
-                        prepareCodeTest(latestTag)
+                script {
+                    if (params.RunAgv) {
+                        stageFetchLatestTag(choiseRunAll)
+                    } else {
+                        stageFetchLatestTag(choiseIndividualy)
                     }
                 }
             }
@@ -29,7 +37,6 @@ pipeline {
                     def language = readYaml(file: 'config.yaml').stages['build_image']['language']
                     switch(language) {
                         case 'java':
-                            def latestTag = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
                             compileJava(latestTag)
                             break
                         case 'python':
@@ -52,7 +59,6 @@ pipeline {
             steps {
                 script {
                     def artifactDir = "artifacts-jenkins/"
-                    // Check if the directory exists, if not, create it
                     sh """
                         if [ ! -d \"${artifactDir}\" ]; then
                             mkdir -p ${artifactDir}
@@ -68,9 +74,7 @@ pipeline {
                     def storedArtifacts = findFiles(glob: "${artifactDir}/*.tar")
 
                     if (storedArtifacts.size() > maxArtifacts) {
-                        // Sort files by last modified time in descending order
                         storedArtifacts.sort { -it.lastModified() }
-                        // Delete oldest files until only maxArtifacts remain
                         while (storedArtifacts.size() > maxArtifacts) {
                             def fileToDelete = storedArtifacts.removeLast()
                             sh "rm ${fileToDelete}"
