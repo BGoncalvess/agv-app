@@ -1,7 +1,6 @@
 @Library('agv-shared-libraries') _
 
 pipeline {
-    dependencyCheck()
     parameters{
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Run Agv')
         choice(name: 'CHOICE', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'Run Individualy')
