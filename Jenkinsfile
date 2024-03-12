@@ -6,8 +6,8 @@ pipeline {
         // choice(name: 'Run Projects Individualy', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'AGV')
         activeChoiceReactiveParam(name: 'Running Projects Individualy', description: 'Select one or more') {
             groovyScript {
-                script('return ['agv-app', 'agv-infra', 'agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi']')
-                fallbackScript('return ['agv-app', 'agv-infra', 'agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi']')
+                script('return ["agv-app", "agv-infra", "agv-commons","agv-inf","agv-alr","agv-vms","agv-env","agv-ctl","agv-map","agv-pln","agv-usr","agv-veh","agv-fe", "agv-kpi"]')
+                fallbackScript('return ["agv-app", "agv-infra", "agv-commons","agv-inf","agv-alr","agv-vms","agv-env","agv-ctl","agv-map","agv-pln","agv-usr","agv-veh","agv-fe", "agv-kpi"]')
             }
             choiceType('MULTI_SELECT')
             referencedParameters('')
