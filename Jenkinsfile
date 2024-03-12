@@ -9,11 +9,13 @@ pipeline {
     
     agent any
     
-    def latestTag = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
-    def choiseRunAll = sh(script: '${params.TOGGLE}')
-    def choiseIndividualy = sh(script: '${params.CHOICE}')
 
     stages {
+        
+        def latestTag = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+        def choiseRunAll = sh(script: '${params.TOGGLE}')
+        def choiseIndividualy = sh(script: '${params.CHOICE}')
+
         stage('Fetch Latest Tag') {
             when {  
                 expression { readYaml(file: 'config.yaml').stages['fetch_latest_tag'] == true } 
