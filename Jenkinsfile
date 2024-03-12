@@ -3,7 +3,8 @@
 pipeline {
     parameters{
         booleanParam(name: 'Run All Projects', defaultValue: true, description: 'AGV')
-        choice(name: 'Run Projects Individualy', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'AGV')
+        // choice(name: 'Run Projects Individualy', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'AGV')
+        choice(name: 'Run Projects Individualy', choices: ['agv-app', 'agv-infra'], description: 'AGV')
     }
     
     agent any
