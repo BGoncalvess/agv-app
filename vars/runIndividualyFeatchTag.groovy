@@ -1,5 +1,6 @@
 def call (String choice){
     
+    // def baseRepoURL = 'https://github.com/BGoncalvess/'
     def baseRepoURL = 'https://github.com/BGoncalvess/'
     def reposToClone = choice.split(',')
     reposToClone.each { repo ->
