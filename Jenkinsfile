@@ -17,10 +17,10 @@ pipeline {
             }
             steps {
                 script {
-                    def choiceRunAll = sh(script: '${params.TOGGLE}')
-                    def choiceIndividualy = sh(script: '${params.CHOICE}')
+                    def choiseRunAll = params.TOGGLE
+                    def choiseIndividualy = params.CHOICE
 
-                    if (params.RunAgv) {
+                    if (params.TOGGLE) {
                         stageFetchLatestTag(choiceRunAll)
                     } else {
                         stageFetchLatestTag(choiceIndividualy)
