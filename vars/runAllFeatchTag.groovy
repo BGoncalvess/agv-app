@@ -1,4 +1,4 @@
-def call (Bolean choise){
+def call (Bolean choice){
     if (choise == True){
         withCredentials([usernamePassword(credentialsId: '884e60f4-2593-46b7-8fc0-b8745791ce4a', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_TOKEN')]) {
         choise.length() 

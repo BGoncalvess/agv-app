@@ -4,7 +4,7 @@ pipeline {
     dependencyCheck()
     parameters{
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Run Agv')
-        choice(name: 'CHOISE', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'Run Individualy')
+        choice(name: 'CHOICE', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'Run Individualy')
     }
     
     agent any
@@ -12,20 +12,19 @@ pipeline {
 
     stages {
         
-        def latestTag = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
-        def choiseRunAll = sh(script: '${params.TOGGLE}')
-        def choiseIndividualy = sh(script: '${params.CHOICE}')
-
         stage('Fetch Latest Tag') {
             when {  
                 expression { readYaml(file: 'config.yaml').stages['fetch_latest_tag'] == true } 
             }
             steps {
                 script {
+                    def choiceRunAll = sh(script: '${params.TOGGLE}')
+                    def choiceIndividualy = sh(script: '${params.CHOICE}')
+
                     if (params.RunAgv) {
-                        stageFetchLatestTag(choiseRunAll)
+                        stageFetchLatestTag(choiceRunAll)
                     } else {
-                        stageFetchLatestTag(choiseIndividualy)
+                        stageFetchLatestTag(choiceIndividualy)
                     }
                 }
             }
