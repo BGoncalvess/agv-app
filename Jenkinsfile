@@ -2,8 +2,8 @@
 
 pipeline {
     parameters{
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Run Agv')
-        choice(name: 'CHOICE', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'Run Individualy')
+        booleanParam(name: 'Run All Projects', defaultValue: true, description: 'AGV')
+        choice(name: 'Run Projects Individualy', choices: ['agv-commons','agv-inf','agv-alr','agv-vms','agv-env','agv-ctl','agv-map','agv-pln','agv-usr','agv-veh','agv-fe', 'agv-kpi'], description: 'AGV')
     }
     
     agent any
